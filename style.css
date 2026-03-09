@@ -1,0 +1,494 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    image-rendering: pixelated;
+}
+
+body {
+    font-family: 'Press Start 2P', cursive;
+    background: #1a1a2e;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.game-container {
+    position: relative;
+    width: 100%;
+    max-width: 900px;
+    image-rendering: pixelated;
+}
+
+/* Asset Images */
+.asset-img {
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+    width: auto;
+    height: auto;
+    max-width: none;
+    display: block;
+}
+
+/* Window */
+.window {
+    position: relative;
+    width: 100%;
+    height: 400px;
+    background: #87CEEB;
+    border: 8px solid #4a4a4a;
+    border-bottom: none;
+    image-rendering: pixelated;
+    overflow: hidden;
+}
+
+.window-frame {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.sky {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    image-rendering: pixelated;
+}
+
+.birds-container {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    pointer-events: auto;
+}
+
+.bird {
+    position: absolute;
+    font-size: 20px;
+    cursor: pointer;
+    user-select: none;
+    z-index: 10;
+    image-rendering: pixelated;
+    filter: drop-shadow(2px 2px 0 rgba(0,0,0,0.3));
+    transition: transform 0.1s;
+}
+
+.bird:hover {
+    transform: scale(1.2);
+}
+
+.bird.spotted {
+    opacity: 0.4;
+    filter: grayscale(50%);
+    pointer-events: none;
+}
+
+.bird.spotted::after {
+    content: '✓';
+    position: absolute;
+    color: #00ff00;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 8px;
+    top: -8px;
+    right: -8px;
+    text-shadow: 1px 1px 0 #000;
+}
+
+.window-sill {
+    position: absolute;
+    bottom: -8px;
+    width: 100%;
+    height: 16px;
+    background: #5c4033;
+    border-top: 4px solid #7a5843;
+}
+
+/* Table */
+.table {
+    position: relative;
+    width: 100%;
+    height: 220px;
+    background: #8b6914;
+    border: 8px solid #5c4033;
+    border-top: none;
+    padding: 16px;
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-end;
+    image-rendering: pixelated;
+}
+
+.table::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: #a67c00;
+}
+
+/* Coffee Maker */
+.coffee-maker {
+    position: relative;
+    cursor: pointer;
+    transition: transform 0.1s;
+    image-rendering: pixelated;
+    display: flex;
+    align-items: flex-end;
+}
+
+.coffee-maker:hover {
+    transform: scale(1.05);
+}
+
+.coffee-maker .asset-img {
+    max-height: 100px;
+}
+
+/* Notebook - Bigger */
+.notebook {
+    position: relative;
+    cursor: pointer;
+    transition: transform 0.1s;
+    image-rendering: pixelated;
+    flex-grow: 1;
+    max-width: 250px;
+    display: flex;
+    justify-content: center;
+}
+
+.notebook:hover {
+    transform: scale(1.02);
+}
+
+.notebook .asset-img {
+    max-height: 180px;
+    width: 100%;
+    object-fit: contain;
+}
+
+.notebook-overlay {
+    position: absolute;
+    top: 20px;
+    left: 25px;
+    right: 25px;
+    bottom: 20px;
+    background: #fffef0;
+    border: 3px solid #d4c4a8;
+    padding: 10px 10px 10px 28px;
+    overflow-y: auto;
+    image-rendering: pixelated;
+    display: none;
+}
+
+.notebook-overlay.active {
+    display: block;
+}
+
+.notebook-lines {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.notebook-line {
+    display: flex;
+    align-items: center;
+    height: 20px;
+    border-bottom: 2px solid #c8d8c8;
+    position: relative;
+    padding-left: 8px;
+}
+
+.notebook-line::before {
+    content: attr(data-number) '.';
+    position: absolute;
+    left: -22px;
+    color: #666;
+    font-size: 7px;
+    font-family: 'Press Start 2P', cursive;
+}
+
+.bird-entry {
+    font-size: 8px;
+    color: #333;
+    font-family: 'Press Start 2P', cursive;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.bird-entry .bird-emoji {
+    font-size: 12px;
+}
+
+/* Binoculars */
+.binoculars {
+    position: relative;
+    cursor: pointer;
+    transition: transform 0.1s;
+    image-rendering: pixelated;
+}
+
+.binoculars:hover {
+    transform: scale(1.1);
+}
+
+.binoculars .asset-img {
+    max-height: 60px;
+}
+
+/* Binoculars Overlay - Round Lenses */
+.binoculars-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 400px;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.2s;
+    z-index: 100;
+    image-rendering: pixelated;
+}
+
+.binoculars-overlay.active {
+    opacity: 1;
+}
+
+.binoculars-lens-left,
+.binoculars-lens-right {
+    position: absolute;
+    top: 0;
+    width: 50%;
+    height: 100%;
+    border: 12px solid #1a1a1a;
+    box-shadow:
+        inset 0 0 0 4px #2a2a2a,
+        inset 0 0 60px rgba(0,0,0,0.6);
+    image-rendering: pixelated;
+}
+
+.binoculars-lens-left {
+    left: 0;
+    border-right: none;
+    border-radius: 0 0 0 50%;
+}
+
+.binoculars-lens-right {
+    right: 0;
+    border-left: none;
+    border-radius: 0 0 50% 0;
+}
+
+/* Round vignette effect */
+.binoculars-lens-left::before,
+.binoculars-lens-right::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.5) 90%);
+    pointer-events: none;
+}
+
+/* Stamina Bar */
+.stamina-container {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    z-index: 50;
+}
+
+.stamina-label {
+    color: #fff;
+    font-size: 8px;
+    text-align: center;
+    margin-bottom: 6px;
+    text-shadow: 2px 2px 0 #000;
+    letter-spacing: 1px;
+}
+
+.stamina-bar-frame {
+    width: 120px;
+    height: 16px;
+    background: #1a1a1a;
+    border: 4px solid #2a2a2a;
+    image-rendering: pixelated;
+}
+
+.stamina-bar {
+    height: 100%;
+    background: linear-gradient(180deg,
+        #44ff44 0%,
+        #44cc44 50%,
+        #33aa33 100%);
+    transition: width 0.2s;
+    image-rendering: pixelated;
+    border-right: 2px solid #2a8a2a;
+}
+
+.stamina-bar.low {
+    background: linear-gradient(180deg,
+        #ff4444 0%,
+        #cc2222 50%,
+        #aa1111 100%);
+    animation: pixelPulse 0.3s steps(2) infinite;
+}
+
+@keyframes pixelPulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+/* Win Screen */
+.win-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.9);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 200;
+    image-rendering: pixelated;
+}
+
+.win-screen.active {
+    display: flex;
+}
+
+.win-content {
+    background: linear-gradient(180deg, #3d7a37 0%, #2d5a27 100%);
+    padding: 30px;
+    border: 8px solid #1a3a17;
+    box-shadow:
+        8px 8px 0 #0a2008,
+        inset 4px 4px 0 rgba(255,255,255,0.1);
+    text-align: center;
+    color: white;
+    max-width: 350px;
+    image-rendering: pixelated;
+}
+
+.win-content h1 {
+    font-size: 16px;
+    margin-bottom: 20px;
+    text-shadow: 3px 3px 0 #0a2008;
+    line-height: 1.5;
+}
+
+.win-content p {
+    font-size: 10px;
+    margin-bottom: 20px;
+    line-height: 1.6;
+}
+
+.final-bird-list {
+    background: rgba(0,0,0,0.3);
+    padding: 12px;
+    border: 4px solid rgba(255,255,255,0.2);
+    margin-bottom: 20px;
+    text-align: left;
+    max-height: 200px;
+    overflow-y: auto;
+    image-rendering: pixelated;
+}
+
+.final-bird-list-item {
+    padding: 6px 8px;
+    margin: 4px 0;
+    background: rgba(255,255,255,0.15);
+    border: 2px solid rgba(255,255,255,0.1);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    image-rendering: pixelated;
+}
+
+.final-bird-list-item span:last-child {
+    font-size: 8px;
+}
+
+.restart-btn {
+    background: #ffd700;
+    color: #1a1a1a;
+    border: 4px solid #ccaa00;
+    padding: 12px 20px;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 10px;
+    cursor: pointer;
+    transition: transform 0.1s;
+    box-shadow:
+        0 4px 0 #aa8800,
+        0 6px 0 #886600;
+    image-rendering: pixelated;
+}
+
+.restart-btn:hover {
+    background: #ffee44;
+    transform: translateY(-2px);
+}
+
+.restart-btn:active {
+    transform: translateY(2px);
+    box-shadow:
+        0 2px 0 #aa8800,
+        0 3px 0 #886600;
+}
+
+/* Instructions */
+.instructions {
+    text-align: center;
+    color: #fff;
+    margin-top: 16px;
+    padding: 12px;
+    background: #16213e;
+    border: 4px solid #1a1a2e;
+    image-rendering: pixelated;
+}
+
+.instructions p {
+    font-size: 8px;
+    line-height: 1.8;
+}
+
+.instructions strong {
+    color: #ffd700;
+}
+
+/* Bird flying animation */
+@keyframes pixelFly {
+    0% { transform: translate(0, 0); }
+    12.5% { transform: translate(4px, -2px); }
+    25% { transform: translate(8px, 0); }
+    37.5% { transform: translate(4px, 2px); }
+    50% { transform: translate(0, 0); }
+    62.5% { transform: translate(-4px, 2px); }
+    75% { transform: translate(-8px, 0); }
+    87.5% { transform: translate(-4px, -2px); }
+    100% { transform: translate(0, 0); }
+}
+
+.bird.flying {
+    animation: pixelFly 2s steps(8) infinite;
+}
+
+/* Notification style */
+.notification {
+    font-family: 'Press Start 2P', cursive !important;
+    border: 4px solid #fff !important;
+    box-shadow: 4px 4px 0 rgba(0,0,0,0.5) !important;
+    image-rendering: pixelated !important;
+}

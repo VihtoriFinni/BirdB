@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bird Watching</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="game-container">
+        <!-- Window View -->
+        <div class="window" id="window">
+            <div class="window-frame">
+                <div class="sky" style="background: url('assets/background.png') center/cover no-repeat;"></div>
+                <div class="birds-container" id="birdsContainer"></div>
+            </div>
+            <div class="window-sill"></div>
+        </div>
+
+        <!-- Table -->
+        <div class="table">
+            <!-- Coffee Maker -->
+            <div class="coffee-maker" id="coffeeMaker">
+                <img src="assets/coffee-maker.png" alt="Coffee Maker" class="asset-img">
+            </div>
+
+            <!-- Notebook -->
+            <div class="notebook" id="notebook">
+                <img src="assets/notebook.png" alt="Notebook" class="asset-img">
+                <div class="notebook-overlay" id="notebookOverlay">
+                    <div class="notebook-lines" id="notebookLines"></div>
+                </div>
+            </div>
+
+            <!-- Binoculars -->
+            <div class="binoculars" id="binoculars">
+                <img src="assets/binoculars.png" alt="Binoculars" class="asset-img">
+            </div>
+
+            <!-- Stamina Bar -->
+            <div class="stamina-container">
+                <div class="stamina-label">Stamina</div>
+                <div class="stamina-bar-frame">
+                    <div class="stamina-bar" id="staminaBar"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Binoculars Overlay -->
+        <div class="binoculars-overlay" id="binocularsOverlay">
+            <div class="binoculars-lens-left"></div>
+            <div class="binoculars-lens-right"></div>
+        </div>
+
+        <!-- Win Screen -->
+        <div class="win-screen" id="winScreen">
+            <div class="win-content">
+                <h1>🐦 Congratulations! 🐦</h1>
+                <p>You've spotted all 10 birds!</p>
+                <div class="final-bird-list" id="finalBirdList"></div>
+                <button class="restart-btn" id="restartBtn">Play Again</button>
+            </div>
+        </div>
+
+        <!-- Instructions -->
+        <div class="instructions">
+            <p><strong>How to Play:</strong> Click on birds through the window to spot them!
+            Click binoculars to zoom in. Drink coffee when stamina is low. Find all 10 birds!</p>
+        </div>
+    </div>
+
+    <script src="game.js"></script>
+</body>
+</html>
