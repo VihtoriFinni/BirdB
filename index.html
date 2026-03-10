@@ -8,25 +8,37 @@
 </head>
 <body>
     <div class="game-container">
-        <!-- Window View -->
-        <div class="window" id="window">
-            <div class="window-frame">
-                <div class="sky" style="background: url('assets/background.png') center/cover no-repeat;"></div>
-                <div class="birds-container" id="birdsContainer"></div>
+        <!-- Scene Layers (Behind Window) -->
+        <div class="scene-background">
+            <div class="sky-layer">
+                <img src="assets/scene/sky-gradient.png" alt="Sky" class="sky-bg">
             </div>
-            <div class="window-sill"></div>
+            <div class="clouds-layer" id="cloudsLayer">
+                <img src="assets/scene/clouds.png" alt="Clouds" class="clouds-sprite" id="cloudsSprite">
+            </div>
+            <div class="trees-layer">
+                <img src="assets/scene/trees.png" alt="Trees" class="trees-bg">
+            </div>
         </div>
 
-        <!-- Table -->
-        <div class="table">
+        <!-- Birds Container -->
+        <div class="birds-container" id="birdsContainer"></div>
+
+        <!-- Window + Table Combined -->
+        <div class="window-table-overlay">
+            <img src="assets/scene/window-table.png" alt="Window and Table" class="window-table-img">
+        </div>
+
+        <!-- Items on Table (positioned absolutely) -->
+        <div class="items-layer">
             <!-- Coffee Maker -->
             <div class="coffee-maker" id="coffeeMaker">
-                <img src="assets/coffee-maker.png" alt="Coffee Maker" class="asset-img">
+                <img src="assets/items/coffee-maker.png" alt="Coffee Maker" class="asset-img">
             </div>
 
             <!-- Notebook -->
             <div class="notebook" id="notebook">
-                <img src="assets/notebook.png" alt="Notebook" class="asset-img">
+                <img src="assets/items/notebook.png" alt="Notebook" class="asset-img">
                 <div class="notebook-overlay" id="notebookOverlay">
                     <div class="notebook-lines" id="notebookLines"></div>
                 </div>
@@ -34,15 +46,15 @@
 
             <!-- Binoculars -->
             <div class="binoculars" id="binoculars">
-                <img src="assets/binoculars.png" alt="Binoculars" class="asset-img">
+                <img src="assets/items/binoculars.png" alt="Binoculars" class="asset-img">
             </div>
+        </div>
 
-            <!-- Stamina Bar -->
-            <div class="stamina-container">
-                <div class="stamina-label">Stamina</div>
-                <div class="stamina-bar-frame">
-                    <div class="stamina-bar" id="staminaBar"></div>
-                </div>
+        <!-- Stamina Bar -->
+        <div class="stamina-container">
+            <div class="stamina-label">Stamina</div>
+            <div class="stamina-bar-frame">
+                <div class="stamina-bar" id="staminaBar"></div>
             </div>
         </div>
 
@@ -50,6 +62,22 @@
         <div class="binoculars-overlay" id="binocularsOverlay">
             <div class="binoculars-lens-left"></div>
             <div class="binoculars-lens-right"></div>
+        </div>
+
+        <!-- Map Widget -->
+        <div class="map-widget" id="mapWidget">
+            <div class="map-mini" id="mapMini">
+                <img src="assets/ui/map.png" alt="Map" class="map-mini-img">
+            </div>
+            <div class="map-expanded" id="mapExpanded">
+                <div class="map-content">
+                    <img src="assets/ui/map.png" alt="Full Map" class="map-full-img">
+                    <button class="close-map-btn" id="closeMapBtn">×</button>
+                    <div class="map-travel-info">
+                        <p>Travel feature coming soon!</p>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <!-- Win Screen -->

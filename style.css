@@ -34,37 +34,139 @@ body {
     display: block;
 }
 
-/* Window */
-.window {
+/* Game Scene Container */
+.game-container {
     position: relative;
     width: 100%;
-    height: 400px;
-    background: #87CEEB;
-    border: 8px solid #4a4a4a;
-    border-bottom: none;
+    max-width: 900px;
     image-rendering: pixelated;
-    overflow: hidden;
 }
 
-.window-frame {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-}
+/* ========== BACKGROUND POSITION ADJUSTMENTS ========== */
 
-.sky {
+/* ===== WINDOW AREA SIZE (Adjust these to resize/move the window) ===== */
+/* Scene Background - where sky, clouds, trees appear */
+.scene-background {
     position: absolute;
+    /* CHANGE BELOW: top/left/width/height to move/resize window area */
+    top: 2%;          /* Distance from top */
+    left: 4%;         /* Distance from left */
+    width: 95%;       /* Width of window area */
+    height: 58%;      /* Height of window area */
+    /* overflow: hidden; <-- REMOVED to allow trees to extend beyond */
+    z-index: 1;
+    background: #87CEEB;
+}
+
+.sky-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
+    z-index: 1;
+}
+
+/* ===== IMAGE POSITIONING (Adjust these to shift sky/trees/clouds) ===== */
+/* Guide: translateX(0%) = left | translateX(-25%) = center-left | translateX(-50%) = center-right | translateX(-100%) = far right */
+
+.sky-bg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    /* CHANGE BELOW: Adjust sky horizontal position */
+    transform: translateX(0%);
     image-rendering: pixelated;
 }
 
+.clouds-layer {
+    position: absolute;
+    /* CHANGE BELOW: Cloud container position */
+    top: 15%;         /* Distance from top of window - increase to move down */
+    left: 0;         /* Distance from left - increase to move right */
+    width: 100%;     /* Width of cloud area */
+    height: 140%;     /* Height of cloud area */
+    z-index: 2;
+    overflow: hidden;
+}
+
+.clouds-sprite {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    /* CHANGE BELOW: Adjust clouds horizontal position */
+    transform: translateX(-50%);
+    image-rendering: pixelated;
+    animation: cloudDrift 60s linear infinite;
+}
+
+@keyframes cloudDrift {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
+
+.trees-layer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 3;
+}
+
+.trees-bg {
+    width: 100%;
+    height: 150%;
+    object-fit: cover;
+    object-position: bottom center;
+    /* CHANGE BELOW: Adjust trees horizontal position only */
+    transform: translateX(-8%);
+    /* Vertical positioning now handled by height: 150% and object-position */
+    image-rendering: pixelated;
+}
+
+/* ========== BIRDS SPAWN AREA ========== */
+
+/* Birds Container - area where birds can spawn */
 .birds-container {
     position: absolute;
-    width: 100%;
-    height: 100%;
+    /* CHANGE BELOW: Spawn area position - adjust to match visible window */
+    top: 2%;         /* Distance from top */
+    left: 4%;        /* Distance from left */
+    width: 95%;      /* Width of spawn area - reduce to keep birds inside window */
+    height: 45%;     /* Height of spawn area - reduced to keep birds lower */
+    z-index: 4;
     pointer-events: auto;
+    overflow: hidden;  /* Keep birds inside the container when zoomed */
+}
+
+/* Window + Table Overlay */
+.window-table-overlay {
+    position: relative;
+    width: 100%;
+    z-index: 10;
+    pointer-events: none;
+}
+
+.window-table-img {
+    width: 100%;
+    height: auto;
+    image-rendering: pixelated;
+}
+
+/* Items Layer (positioned on table) */
+.items-layer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 35%;
+    z-index: 15;
+    pointer-events: none;
 }
 
 .bird {
@@ -99,48 +201,21 @@ body {
     text-shadow: 1px 1px 0 #000;
 }
 
-.window-sill {
-    position: absolute;
-    bottom: -8px;
-    width: 100%;
-    height: 16px;
-    background: #5c4033;
-    border-top: 4px solid #7a5843;
-}
 
-/* Table */
-.table {
-    position: relative;
-    width: 100%;
-    height: 220px;
-    background: #8b6914;
-    border: 8px solid #5c4033;
-    border-top: none;
-    padding: 16px;
-    display: flex;
-    justify-content: space-around;
-    align-items: flex-end;
-    image-rendering: pixelated;
-}
-
-.table::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 4px;
-    background: #a67c00;
-}
+/* ========== ITEMS POSITIONING & SCALING ========== */
 
 /* Coffee Maker */
 .coffee-maker {
-    position: relative;
+    position: absolute;
+    /* CHANGE BELOW: Position - left/right use % from edge, bottom uses % from bottom */
+    left: 58%;         /* Move left/right (0% = left edge, 50% = center) */
+    bottom: 70%;      /* Move up/down (0% = bottom edge, 100% = top) */
     cursor: pointer;
+    pointer-events: auto;
     transition: transform 0.1s;
     image-rendering: pixelated;
-    display: flex;
-    align-items: flex-end;
+    /* CHANGE BELOW: Size - larger number = bigger */
+    max-width: 80px;  /* Width of coffee maker image */
 }
 
 .coffee-maker:hover {
@@ -148,19 +223,21 @@ body {
 }
 
 .coffee-maker .asset-img {
-    max-height: 100px;
+    max-height: 200px;
 }
 
-/* Notebook - Bigger */
+/* Notebook */
 .notebook {
-    position: relative;
+    position: absolute;
+    /* CHANGE BELOW: Position */
+    left: 32%;        /* Move left/right (0% = left edge, 50% = center) */
+    bottom: 22%;      /* Move up/down (0% = bottom, 100% = top) */
     cursor: pointer;
+    pointer-events: auto;
     transition: transform 0.1s;
     image-rendering: pixelated;
-    flex-grow: 1;
-    max-width: 250px;
-    display: flex;
-    justify-content: center;
+    /* CHANGE BELOW: Size */
+    max-width: 200px; /* Width of notebook image */
 }
 
 .notebook:hover {
@@ -230,11 +307,18 @@ body {
 }
 
 /* Binoculars */
+/* Binoculars */
 .binoculars {
-    position: relative;
+    position: absolute;
+    /* CHANGE BELOW: Position */
+    right: 80%;       /* Move from right edge (0% = right edge, 50% = center) */
+    bottom: 58%;      /* Move up/down (0% = bottom, 100% = top) */
     cursor: pointer;
+    pointer-events: auto;
     transition: transform 0.1s;
     image-rendering: pixelated;
+    /* CHANGE BELOW: Size - larger number = bigger */
+    max-width: 70px;  /* Width of binoculars image */
 }
 
 .binoculars:hover {
@@ -242,16 +326,16 @@ body {
 }
 
 .binoculars .asset-img {
-    max-height: 60px;
+    max-height: 190px;
 }
 
 /* Binoculars Overlay - Round Lenses */
 .binoculars-overlay {
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 400px;
+    top: 2%;
+    left: 4%;
+    width: 95%;
+    height: 45%;  /* Match birds-container height */
     pointer-events: none;
     opacity: 0;
     transition: opacity 0.2s;
@@ -491,4 +575,281 @@ body {
     border: 4px solid #fff !important;
     box-shadow: 4px 4px 0 rgba(0,0,0,0.5) !important;
     image-rendering: pixelated !important;
+}
+
+/* Map Widget */
+/* ========== MAP WIDGET POSITIONING & SCALING ========== */
+
+.map-widget {
+    position: absolute;
+    /* CHANGE BELOW: Position of mini map */
+    bottom: 100px;     /* Distance from bottom of game-container */
+    right: 10px;      /* Distance from right of game-container */
+    z-index: 80;
+    image-rendering: pixelated;
+}
+
+.map-mini {
+    cursor: pointer;
+    image-rendering: pixelated;
+    /* CHANGE BELOW: Size of mini map */
+    width: 80px;      /* Width - increase to make wider */
+    height: 60px;     /* Height - increase to make taller */
+    overflow: hidden;
+    border: 4px solid #5c4033;
+    box-shadow: 4px 4px 0 rgba(0,0,0,0.5);
+    background: #f4e4bc;
+    display: block;   /* Prevent inline jumping */
+}
+
+.map-mini:hover {
+    transform: scale(1.05);
+    transition: transform 0.1s;
+}
+
+.map-mini-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    image-rendering: pixelated;
+    display: block;   /* Prevent bottom gap */
+}
+
+.map-expanded {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90vw;
+    height: 90vh;
+    max-width: 800px;
+    max-height: 600px;
+    z-index: 200;
+    background: rgba(0,0,0,0.9);
+    padding: 20px;
+    image-rendering: pixelated;
+}
+
+.map-expanded.active {
+    display: block;
+}
+
+.map-content {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background: #f4e4bc;
+    border: 8px solid #5c4033;
+    box-shadow: 8px 8px 0 rgba(0,0,0,0.5);
+    padding: 16px;
+    image-rendering: pixelated;
+}
+
+.map-full-img {
+    width: 100%;
+    height: calc(100% - 40px);
+    object-fit: contain;
+    image-rendering: pixelated;
+}
+
+.close-map-btn {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    width: 32px;
+    height: 32px;
+    background: #c44;
+    color: #fff;
+    border: 4px solid #822;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 16px;
+    cursor: pointer;
+    image-rendering: pixelated;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 0 #611;
+}
+
+.close-map-btn:hover {
+    background: #e44;
+}
+
+.close-map-btn:active {
+    transform: translateY(2px);
+    box-shadow: 0 2px 0 #611;
+}
+
+.map-travel-info {
+    position: absolute;
+    bottom: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #5c4033;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 8px;
+    text-align: center;
+}
+
+.map-travel-info p {
+    margin: 0;
+    padding: 4px 8px;
+    background: rgba(244, 228, 188, 0.9);
+    border: 2px solid #5c4033;
+}
+
+/* ========== RESPONSIVE DESIGN ========== */
+
+/* Tablets (768px and below) */
+@media (max-width: 768px) {
+    .game-container {
+        max-width: 100%;
+        padding: 10px;
+    }
+
+    /* Scene background - adjust for smaller screens */
+    .scene-background {
+        top: 3%;
+        left: 5%;
+        width: 90%;
+        height: 50%;
+    }
+
+    /* Birds container */
+    .birds-container {
+        top: 3%;
+        left: 5%;
+        width: 90%;
+        height: 50%;
+    }
+
+    /* Binoculars overlay */
+    .binoculars-overlay {
+        top: 3%;
+        left: 5%;
+        width: 90%;
+        height: 50%;
+    }
+
+    /* Items - smaller and repositioned */
+    .coffee-maker {
+        left: 5%;
+        bottom: 20%;
+        max-width: 60px;
+    }
+
+    .notebook {
+        left: 30%;
+        bottom: 18%;
+        max-width: 150px;
+    }
+
+    .binoculars {
+        right: 5%;
+        bottom: 22%;
+        max-width: 50px;
+    }
+
+    /* Map widget - smaller */
+    .map-mini {
+        width: 60px;
+        height: 45px;
+    }
+
+    /* Stamina bar - smaller */
+    .stamina-container {
+        top: 5px;
+        right: 5px;
+    }
+
+    .stamina-bar-frame {
+        width: 80px;
+        height: 12px;
+    }
+}
+
+/* Mobile (480px and below) */
+@media (max-width: 480px) {
+    body {
+        padding: 5px;
+    }
+
+    .game-container {
+        max-width: 100%;
+    }
+
+    /* Scene background - fullscreen on mobile */
+    .scene-background {
+        top: 25%;
+        left: 5%;
+        width: 90%;
+        height: 40%;
+    }
+
+    .birds-container {
+        top: 25%;
+        left: 5%;
+        width: 90%;
+        height: 40%;
+    }
+
+    .binoculars-overlay {
+        top: 25%;
+        left: 5%;
+        width: 90%;
+        height: 40%;
+    }
+
+    /* Items - even smaller */
+    .coffee-maker {
+        left: 3%;
+        bottom: 15%;
+        max-width: 50px;
+    }
+
+    .notebook {
+        left: 25%;
+        bottom: 12%;
+        max-width: 120px;
+    }
+
+    .binoculars {
+        right: 3%;
+        bottom: 16%;
+        max-width: 45px;
+    }
+
+    /* Map - very small */
+    .map-mini {
+        width: 50px;
+        height: 38px;
+    }
+
+    /* Instructions - smaller text */
+    .instructions p {
+        font-size: 6px;
+    }
+
+    /* Win screen - smaller */
+    .win-content {
+        padding: 20px;
+        max-width: 90%;
+    }
+
+    .win-content h1 {
+        font-size: 12px;
+    }
+
+    .win-content p {
+        font-size: 8px;
+    }
+}
+
+/* Large screens (1200px and above) */
+@media (min-width: 1200px) {
+    .game-container {
+        max-width: 1000px;
+    }
 }

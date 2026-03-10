@@ -16,16 +16,19 @@ You're sitting at a cozy table near a window, with a coffee maker, a notebook, a
 2. **Use Binoculars** - Click the binoculars to zoom in and see distant birds more clearly
 3. **Drink Coffee** - Click the coffee maker to refill your stamina when it gets low
 4. **Check Your Notebook** - Click the notebook to see which birds you've found
-5. **Win** - Find all 10 different birds to complete your collection!
+5. **View Map** - Click the map in the bottom-right to open the world map (travel coming soon!)
+6. **Win** - Find all 10 different birds to complete your collection!
 
 ## ✨ Features
 
 - **Pixel Art Style** - Retro 8-bit aesthetic with custom assets
 - **10 Unique Birds** - Robin, Cardinal, Blue Jay, Goldfinch, Hummingbird, Owl, Eagle, Duck, Swan, and Peacock
+- **Layered Background System** - Animated sky, drifting clouds, and scenic trees
 - **Stamina System** - Manage your energy with coffee breaks
-- **Binoculars Mode** - Zoom in to spot distant birds with a round lens effect
+- **Binoculars Mode** - Zoom in to spot distant birds with a dual lens effect
 - **Notebook Tracking** - Lined paper notebook that fills up as you discover birds
-- **Responsive Design** - Works on different screen sizes
+- **Map Widget** - Expandable world map in the bottom-right corner
+- **Responsive Design** - Works on desktop, tablet, and mobile devices
 
 ## 🛠️ Tech Stack
 
@@ -33,6 +36,16 @@ You're sitting at a cozy table near a window, with a coffee maker, a notebook, a
 - **CSS3** - Pixel art styling, animations, and effects
 - **JavaScript (ES6+)** - Game logic and interactivity
 - **No external dependencies** - Pure vanilla JavaScript!
+
+## 📱 Responsive Design
+
+The game automatically adapts to different screen sizes:
+
+- **Desktop (1200px+)** - Full-sized game experience
+- **Tablet (≤768px)** - Adjusted item positions and sizes
+- **Mobile (≤480px)** - Compact layout with smaller UI elements
+
+The layout fluidly adjusts when resizing the browser window!
 
 ## 📦 Installation
 
@@ -63,6 +76,7 @@ cd bird-watching
 | Toggle binoculars | Click the binoculars |
 | Drink coffee | Click the coffee maker |
 | Open notebook | Click the notebook |
+| Open/close map | Click the map widget (bottom-right) |
 | Restart game | Click "Play Again" after winning |
 
 ## 📊 Game Flow
@@ -98,24 +112,78 @@ flowchart TD
 ```
 bird-watching/
 ├── index.html          # Main HTML structure
-├── style.css           # Pixel art styling
-├── game.js             # Game logic
-├── assets/             # Game assets
-│   ├── background.png  # Window view with trees
-│   ├── coffee-maker.png
-│   ├── binoculars.png
-│   └── notebook.png
+├── style.css           # Pixel art styling with responsive design
+├── game.js             # Game logic and interactivity
+├── assets/             # Game assets organized by type
+│   ├── scene/          # Background elements
+│   │   ├── sky-gradient.png
+│   │   ├── clouds.png
+│   │   ├── trees.png
+│   │   └── window-table.png
+│   ├── items/          # Interactive items
+│   │   ├── coffee-maker.png
+│   │   ├── binoculars.png
+│   │   └── notebook.png
+│   └── ui/             # User interface elements
+│       └── map.png
 └── README.md           # This file
 ```
 
 ## 🎨 Customization
 
-Want to add your own assets? Place your pixel art images in the `assets/` folder:
+### Asset Placement
 
-- **background.png** - Recommended: 900×400px
-- **coffee-maker.png** - Recommended: ~100×100px
-- **binoculars.png** - Recommended: ~60×60px
-- **notebook.png** - Recommended: ~250×180px
+Place your pixel art images in the `assets/` folder:
+
+**Scene Assets** (`assets/scene/`):
+- `window-table.png` - Combined window + table foreground (900×400px recommended)
+- `sky-gradient.png` - Sky background
+- `clouds.png` - Cloud sprite for animation
+- `trees.png` - Trees/landscape background
+
+**Item Assets** (`assets/items/`):
+- `coffee-maker.png` - Coffee maker sprite (~100×100px recommended)
+- `binoculars.png` - Binoculars sprite (~60×60px recommended)
+- `notebook.png` - Notebook sprite (~250×180px recommended)
+
+**UI Assets** (`assets/ui/`):
+- `map.png` - World map image (full size, mini version is auto-cropped)
+
+### Positioning & Scaling
+
+All item positions can be easily adjusted in `style.css`. Look for the commented sections:
+
+```css
+/* ========== ITEMS POSITIONING & SCALING ========== */
+/* Coffee Maker */
+.coffee-maker {
+    left: 58%;         /* Move left/right */
+    bottom: 70%;       /* Move up/down */
+    max-width: 80px;   /* Size */
+}
+
+/* Similar controls for notebook, binoculars, map, clouds, etc. */
+```
+
+### Background Adjustments
+
+```css
+/* ========== BACKGROUND POSITION ADJUSTMENTS ========== */
+.scene-background {
+    top: 2%;          /* Window area position from top */
+    left: 4%;         /* Window area position from left */
+    width: 95%;       /* Window area width */
+    height: 58%;      /* Window area height */
+}
+
+.sky-bg {
+    transform: translateX(0%);  /* Move sky horizontally */
+}
+
+.trees-bg {
+    transform: translateX(-8%); /* Move trees horizontally */
+}
+```
 
 ## 🐦 Bird List
 

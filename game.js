@@ -26,7 +26,6 @@ const birdTypes = [
 
 // DOM Elements
 const elements = {
-    window: document.getElementById('window'),
     birdsContainer: document.getElementById('birdsContainer'),
     coffeeMaker: document.getElementById('coffeeMaker'),
     notebook: document.getElementById('notebook'),
@@ -37,7 +36,11 @@ const elements = {
     staminaBar: document.getElementById('staminaBar'),
     winScreen: document.getElementById('winScreen'),
     finalBirdList: document.getElementById('finalBirdList'),
-    restartBtn: document.getElementById('restartBtn')
+    restartBtn: document.getElementById('restartBtn'),
+    mapWidget: document.getElementById('mapWidget'),
+    mapMini: document.getElementById('mapMini'),
+    mapExpanded: document.getElementById('mapExpanded'),
+    closeMapBtn: document.getElementById('closeMapBtn')
 };
 
 // Initialize Game
@@ -108,12 +111,13 @@ function createBird(birdType, index) {
     bird.dataset.birdId = birdType.id;
     bird.dataset.birdName = birdType.name;
 
-    // Position bird - spread across the window
-    const left = 10 + Math.random() * 80;
-    const bottom = 100 + Math.random() * 200;
+    // ========== BIRD POSITIONING ==========
+    // CHANGE BELOW: Adjust spawn range (all percentages stay within birds-container)
+    const left = 10 + Math.random() * 80;     // Horizontal: 10% to 90% of container width
+    const bottom = 10 + Math.random() * 80;   // Vertical: 10% to 90% of container height
 
     bird.style.left = `${left}%`;
-    bird.style.bottom = `${bottom}px`;
+    bird.style.bottom = `${bottom}%`;
 
     // Make smaller if farther away (harder to click without binoculars)
     const depth = Math.random();
@@ -246,6 +250,17 @@ function setupEventListeners() {
         toggleBinoculars();
     });
 
+    // Map Widget
+    elements.mapMini.addEventListener('click', () => {
+        if (gameState.gameOver) return;
+        toggleMap();
+    });
+
+    // Close Map Button
+    elements.closeMapBtn.addEventListener('click', () => {
+        closeMap();
+    });
+
     // Restart Button
     elements.restartBtn.addEventListener('click', () => {
         restartGame();
@@ -301,6 +316,16 @@ function toggleBinoculars() {
         elements.binocularsOverlay.classList.remove('active');
         elements.birdsContainer.style.transform = 'scale(1)';
     }
+}
+
+// Toggle Map
+function toggleMap() {
+    elements.mapExpanded.classList.add('active');
+}
+
+// Close Map
+function closeMap() {
+    elements.mapExpanded.classList.remove('active');
 }
 
 // Start Stamina Drain
@@ -368,6 +393,7 @@ function restartGame() {
     elements.winScreen.classList.remove('active');
     elements.binocularsOverlay.classList.remove('active');
     elements.notebookOverlay.classList.remove('active');
+    elements.mapExpanded.classList.remove('active');
     elements.birdsContainer.style.transform = 'scale(1)';
     elements.birdsContainer.style.filter = 'brightness(1)';
 
