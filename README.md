@@ -1,4 +1,4 @@
-# 🐦 Bird Watching - A Pixel Art Browser Game
+#  Bird Watching - A Pixel Art Browser Game
 
 Spot birds from your window, drink coffee to stay energized, and fill your notebook with all 10 bird species!
 
@@ -6,11 +6,11 @@ Spot birds from your window, drink coffee to stay energized, and fill your noteb
 ![Browser Game](https://img.shields.io/badge/type-browser%20game-blue)
 ![JavaScript](https://img.shields.io/badge/tech-html%2Fcss%2Fjs-yellow)
 
-## 🎮 About the Game
+##  About the Game
 
 You're sitting at a cozy table near a window, with a coffee maker, a notebook, and binoculars. Outside, birds fly between the trees. Your goal is to spot all 10 different bird species and record them in your notebook.
 
-## 🎯 How to Play
+##  How to Play
 
 1. **Spot Birds** - Click on birds through the window to record them in your notebook
 2. **Use Binoculars** - Click the binoculars to zoom in and see distant birds more clearly
@@ -19,7 +19,7 @@ You're sitting at a cozy table near a window, with a coffee maker, a notebook, a
 5. **View Map** - Click the map in the bottom-right to open the world map (travel coming soon!)
 6. **Win** - Find all 10 different birds to complete your collection!
 
-## ✨ Features
+##  Features
 
 - **Pixel Art Style** - Retro 8-bit aesthetic with custom assets
 - **10 Unique Birds** - Robin, Cardinal, Blue Jay, Goldfinch, Hummingbird, Owl, Eagle, Duck, Swan, and Peacock
@@ -47,7 +47,7 @@ The game automatically adapts to different screen sizes:
 
 The layout fluidly adjusts when resizing the browser window!
 
-## 📦 Installation
+##  Installation
 
 1. Clone the repository:
 ```bash
@@ -68,7 +68,7 @@ cd bird-watching
 
 3. Play and enjoy! No build process required.
 
-## 🎮 Game Controls
+##  Game Controls
 
 | Action | How |
 |--------|-----|
@@ -79,7 +79,7 @@ cd bird-watching
 | Open/close map | Click the map widget (bottom-right) |
 | Restart game | Click "Play Again" after winning |
 
-## 📊 Game Flow
+##  Game Flow
 
 ```mermaid
 flowchart TD
@@ -107,7 +107,7 @@ flowchart TD
     Restart --> Start
 ```
 
-## 📂 Project Structure
+##  Project Structure
 
 ```
 bird-watching/
@@ -129,7 +129,7 @@ bird-watching/
 └── README.md           # This file
 ```
 
-## 🎨 Customization
+##  Customization
 
 ### Asset Placement
 
@@ -185,7 +185,7 @@ All item positions can be easily adjusted in `style.css`. Look for the commented
 }
 ```
 
-## 🐦 Bird List
+##  Bird List
 
 | # | Bird | Emoji |
 |---|------|-------|
@@ -200,17 +200,17 @@ All item positions can be easily adjusted in `style.css`. Look for the commented
 | 9 | Swan | 🦢 |
 | 10 | Peacock | 🦚 |
 
-## 🌟 Credits
+##  Credits
 
 - **Game Design & Development** - Vihtori
 - **Pixel Art Assets** - Vihtori
 - **Font** - [Press Start 2P](https://fonts.google.com/specimen/Press+Start+2P) by Code New Roman
 
-## 📝 License
+##  License
 
 This project is open source and available under the [MIT License](LICENSE).
 
-## 🤝 Contributing
+##  Contributing
 
 Contributions are welcome! Feel free to:
 - Report bugs
@@ -218,10 +218,10 @@ Contributions are welcome! Feel free to:
 - Submit pull requests
 - Add new bird species
 
-## 📮 Contact
+##  Contact
 
 Have questions or feedback? Open an issue on GitHub!
 
 ---
 
-**Made with ❤️ and ☕ for bird lovers everywhere**
+**Made for bird lovers everywhere**
