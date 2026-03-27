@@ -30,14 +30,14 @@ You're sitting at a cozy table near a window, with a coffee maker, a notebook, a
 - **Map Widget** - Expandable world map in the bottom-right corner
 - **Responsive Design** - Works on desktop, tablet, and mobile devices
 
-## 🛠️ Tech Stack
+##  Tech Stack
 
 - **HTML5** - Game structure
 - **CSS3** - Pixel art styling, animations, and effects
 - **JavaScript (ES6+)** - Game logic and interactivity
 - **No external dependencies** - Pure vanilla JavaScript!
 
-## 📱 Responsive Design
+##  Responsive Design
 
 The game automatically adapts to different screen sizes:
 
